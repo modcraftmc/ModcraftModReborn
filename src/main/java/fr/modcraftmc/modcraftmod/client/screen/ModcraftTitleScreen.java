@@ -65,7 +65,7 @@ public class ModcraftTitleScreen extends Screen {
     private final PanoramaRenderer panorama = new PanoramaRenderer(CUBE_MAP);
     @Nullable
     private ModcraftTitleScreen.WarningLabel warningLabel;
-    private ServerData modcraftServerData = new ServerData("ModcraftMC", "servers.modcraftmc.fr", false);
+    private ServerData modcraftServerData = new ServerData("ModcraftMC", "play.modcraftmc.fr", false);
     public ModcraftTitleScreen() {
         super(Component.translatable("narrator.screen.title"));
     }

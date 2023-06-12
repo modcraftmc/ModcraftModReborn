@@ -125,7 +125,7 @@ minecraft {
 }
 
 mixin {
-    add sourceSets.main, "ModcraftMod.refmap.json"
+    add sourceSets.main, "modcraftmod.refmap.json"
 
     config "modcraftmod.mixins.json"
 }
