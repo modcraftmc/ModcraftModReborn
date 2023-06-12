@@ -1,7 +1,10 @@
 package fr.modcraftmc.modcraftmod;
 
 import com.mojang.logging.LogUtils;
+import fr.modcraftmc.modcraftmod.client.ClientEventHandler;
+import fr.modcraftmc.modcraftmod.client.screen.ModcraftTitleScreen;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -10,6 +13,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -37,8 +41,10 @@ public class ModcraftModReborn {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
+
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+        //MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
