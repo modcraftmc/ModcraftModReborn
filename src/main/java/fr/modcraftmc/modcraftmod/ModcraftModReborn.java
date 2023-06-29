@@ -1,34 +1,16 @@
 package fr.modcraftmc.modcraftmod;
 
 import com.mojang.logging.LogUtils;
-import fr.modcraftmc.modcraftmod.client.ClientEventHandler;
-import fr.modcraftmc.modcraftmod.client.screen.ModcraftTitleScreen;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ScreenEvent;
+import fr.modcraftmc.modcraftmod.client.discord.DiscordActivity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
+
+import java.io.IOException;
 
 @Mod(ModcraftModReborn.MODID)
 public class ModcraftModReborn {
@@ -40,6 +22,7 @@ public class ModcraftModReborn {
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::clientSetup);
 
 
         // Register ourselves for server and other game events we are interested in
@@ -48,6 +31,14 @@ public class ModcraftModReborn {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+    }
+
+    private void clientSetup(final FMLClientSetupEvent event) {
+        try {
+            DiscordActivity.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
