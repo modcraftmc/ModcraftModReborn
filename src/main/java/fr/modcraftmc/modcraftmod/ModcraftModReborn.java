@@ -34,11 +34,13 @@ public class ModcraftModReborn {
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        try {
-            DiscordActivity.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Thread thread = new Thread(() -> {
+            try {
+                DiscordActivity.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 }
