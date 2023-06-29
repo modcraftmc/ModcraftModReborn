@@ -41,6 +41,7 @@ public class ModcraftModReborn {
                 e.printStackTrace();
             }
         });
+        thread.start();
     }
 
 }
