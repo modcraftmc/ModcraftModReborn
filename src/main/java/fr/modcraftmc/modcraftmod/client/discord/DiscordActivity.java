@@ -36,7 +36,7 @@ public class DiscordActivity {
                     // Create the Activity
                         this.activity = new Activity();
 
-                        activity.setDetails("serveur survié moddé 1.19");
+                        activity.setDetails("serveur survie moddé 1.19");
                         activity.setState("chargement du jeu");
 
                         // Setting a start time causes an "elapsed" field to appear
