@@ -14,6 +14,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.Consumer;
 import javax.annotation.Nullable;
+
+import fr.modcraftmc.modcraftmod.ModcraftModReborn;
+import fr.modcraftmc.modcraftmod.threads.ModcraftModExecutor;
 import net.minecraft.SharedConstants;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
@@ -68,6 +71,7 @@ public class ModcraftTitleScreen extends Screen {
     private ServerData modcraftServerData = new ServerData("ModcraftMC", "play.modcraftmc.fr", false);
     public ModcraftTitleScreen() {
         super(Component.translatable("narrator.screen.title"));
+        ModcraftModExecutor.executorService.submit(ModcraftModReborn.discordActivity::setWaitingStatus);
     }
 
     public boolean isPauseScreen() {

@@ -84,7 +84,7 @@ public class ModcraftPauseScreen extends Screen {
             p_96315_.active = false;
             this.minecraft.level.disconnect();
             this.minecraft.clearLevel();
-            TitleScreen titlescreen = new TitleScreen();
+            ModcraftTitleScreen titlescreen = new ModcraftTitleScreen();
             this.minecraft.setScreen(titlescreen);
         }));
     }

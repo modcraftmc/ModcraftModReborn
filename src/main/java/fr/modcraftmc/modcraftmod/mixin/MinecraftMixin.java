@@ -13,7 +13,7 @@ public class MinecraftMixin {
      */
     @Overwrite
     public String createTitle() {
-        return "ModcraftMC: Reborn";
+        return "ModcraftMC: Reborn (ver: PLAYTEST-07072023-0001)";
     }
 
 }

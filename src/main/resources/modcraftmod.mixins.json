@@ -3,11 +3,12 @@
   "minVersion": "0.8",
   "package": "fr.modcraftmc.modcraftmod.mixin",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "ModcraftMod.refmap.json",
+  "refmap": "modcraftmod.refmap.json",
   "mixins": [
   ],
   "client": [
-    "MinecraftMixin"
+    "MinecraftMixin",
+    "ClientPacketListenerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
