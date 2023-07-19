@@ -88,7 +88,7 @@ public class ResetHandler {
         NetworkHooks.registerClientLoginChannel(connection);
         connection.setProtocol(ConnectionProtocol.LOGIN);
         connection.setListener(new ClientHandshakePacketListenerImpl(
-                connection, Minecraft.getInstance(), resetScreen, resetScreen::updateStatus
+                connection, Minecraft.getInstance(), new TitleScreen(), resetScreen::updateStatus
         ));
         Minecraft.getInstance().pendingConnection = connection;
 

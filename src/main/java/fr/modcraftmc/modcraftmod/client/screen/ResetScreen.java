@@ -49,17 +49,6 @@ public class ResetScreen extends Screen {
         this.status = p_95718_;
     }
 
-    public void tick() {
-        if (this.minecraft.getConnection() != null && this.minecraft.getConnection().getConnection() != null) {
-            if (this.minecraft.getConnection().getConnection().isConnected()) {
-                this.minecraft.getConnection().getConnection().tick();
-            } else {
-                this.minecraft.getConnection().getConnection().handleDisconnection();
-            }
-        }
-
-    }
-
     public boolean shouldCloseOnEsc() {
         return false;
     }

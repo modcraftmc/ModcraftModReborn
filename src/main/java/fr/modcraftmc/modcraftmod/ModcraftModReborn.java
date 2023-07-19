@@ -32,21 +32,16 @@ public class ModcraftModReborn {
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.addListener(this::playerlogin);
         //MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
     }
 
-    private void commonSetup(final FMLClientSetupEvent event) {
+    private void commonSetup(final FMLCommonSetupEvent event) {
         //PacketHandler.register();
-        ResetHandler.register();
     }
 
-    @SubscribeEvent
-    public void playerlogin(PlayerEvent.PlayerLoggedInEvent event) {
-        ((ServerPlayer) event.getEntity()).connection.disconnect(Component.literal("TEST"));
-    }
 
     private void clientSetup(final FMLClientSetupEvent event) {
         ModcraftModExecutor.executorService.execute(discordActivity::start);
+        ResetHandler.register();
     }
 }
