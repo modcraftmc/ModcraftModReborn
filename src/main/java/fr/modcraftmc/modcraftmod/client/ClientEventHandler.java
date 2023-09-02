@@ -2,6 +2,7 @@ package fr.modcraftmc.modcraftmod.client;
 
 import fr.modcraftmc.modcraftmod.client.screen.ModcraftPauseScreen;
 import fr.modcraftmc.modcraftmod.client.screen.ModcraftTitleScreen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraftforge.api.distmarker.Dist;
@@ -26,8 +27,10 @@ public class ClientEventHandler {
 
     @SubscribeEvent
     public static void debugText(CustomizeGuiOverlayEvent.DebugText event) {
-        event.getLeft().add("");
-        event.getLeft().add("[ModcraftMC]");
-        event.getLeft().add("current server: not implemented");
+        if (Minecraft.getInstance().options.renderDebug) {
+            event.getLeft().add("");
+            event.getLeft().add("[ModcraftMC]");
+            event.getLeft().add("current server: not implemented");
+        }
     }
 }
