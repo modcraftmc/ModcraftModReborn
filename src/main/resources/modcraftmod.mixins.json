@@ -9,7 +9,9 @@
   "client": [
     "MinecraftMixin",
     "ClientPacketListenerMixin",
-    "CrashReportExtenderMixin"
+    "CrashReportExtenderMixin",
+    "MixinNetworkFilters",
+    "VanillaPacketFilterAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

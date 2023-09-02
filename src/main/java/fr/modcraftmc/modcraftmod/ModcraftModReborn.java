@@ -16,6 +16,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
+import java.io.IOException;
+import java.util.jar.Manifest;
+
 @Mod(ModcraftModReborn.MODID)
 public class ModcraftModReborn {
 
@@ -43,5 +46,13 @@ public class ModcraftModReborn {
     private void clientSetup(final FMLClientSetupEvent event) {
         ModcraftModExecutor.executorService.execute(discordActivity::start);
         ResetHandler.register();
+    }
+
+    public static Manifest getManifest() {
+        try {
+            return new Manifest((ModcraftModReborn.class.getResourceAsStream("/META-INF/MANIFEST.MF")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
