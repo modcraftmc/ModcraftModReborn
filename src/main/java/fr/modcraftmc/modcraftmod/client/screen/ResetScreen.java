@@ -7,6 +7,8 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nullable;
+
+import fr.modcraftmc.modcraftmod.client.ClientEventHandler;
 import net.minecraft.DefaultUncaughtExceptionHandler;
 import net.minecraft.Util;
 import net.minecraft.client.GameNarrator;
@@ -32,14 +34,10 @@ import org.slf4j.Logger;
 
 @OnlyIn(Dist.CLIENT)
 public class ResetScreen extends Screen {
-    private static final AtomicInteger UNIQUE_THREAD_ID = new AtomicInteger(0);
     static final Logger LOGGER = LogUtils.getLogger();
-    private static final long NARRATION_DELAY_MS = 2000L;
-    public static final Component UNKNOWN_HOST_MESSAGE = Component.translatable("disconnect.genericReason", Component.translatable("disconnect.unknownHost"));
-    volatile boolean aborted;
     final Screen parent;
-    private Component status = Component.literal("Swiching...");
-    private long lastNarration = -1L;
+    private Component status = Component.literal("switching");
+
 
     public ResetScreen(Screen p_169263_) {
         super(GameNarrator.NO_TITLE);
@@ -55,7 +53,6 @@ public class ResetScreen extends Screen {
 
     protected void init() {
         this.addRenderableWidget(new Button(this.width / 2 - 100, this.height / 4 + 120 + 12, 200, 20, CommonComponents.GUI_CANCEL, (p_95705_) -> {
-            this.aborted = true;
             if (this.minecraft.getConnection() != null && this.minecraft.getConnection().getConnection() != null) {
                 this.minecraft.getConnection().getConnection().disconnect(Component.translatable("connect.aborted"));
             }

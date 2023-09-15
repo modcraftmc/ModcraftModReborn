@@ -1,15 +1,16 @@
 package fr.modcraftmc.modcraftmod;
 
 import com.mojang.logging.LogUtils;
+import fr.modcraftmc.crossservercoreapi.CrossServerCoreAPI;
 import fr.modcraftmc.modcraftmod.client.discord.DiscordActivity;
 import fr.modcraftmc.modcraftmod.client.reset.ResetHandler;
+import fr.modcraftmc.modcraftmod.common.network.PacketHandler;
+import fr.modcraftmc.modcraftmod.common.network.packets.S2CServerInfos;
 import fr.modcraftmc.modcraftmod.threads.ModcraftModExecutor;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -35,11 +36,16 @@ public class ModcraftModReborn {
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.addListener(this::onPlayerJoin);
         //MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        //PacketHandler.register();
+        PacketHandler.register();
+    }
+
+    private void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
+        PacketHandler.sendTo(new S2CServerInfos(CrossServerCoreAPI.instance.getServerName()), ((ServerPlayer) event.getEntity()));
     }
 
 

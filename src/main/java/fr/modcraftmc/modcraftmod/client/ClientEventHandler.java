@@ -15,6 +15,9 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(Dist.CLIENT)
 public class ClientEventHandler {
 
+    public static String serverName = "error";
+    public static String toSwitchServer = "error";
+
     @SubscribeEvent
     public static void guiEvent(final ScreenEvent.Opening event) {
         if (ModList.get().isLoaded("replaymod")) return;
@@ -30,7 +33,7 @@ public class ClientEventHandler {
         if (Minecraft.getInstance().options.renderDebug) {
             event.getLeft().add("");
             event.getLeft().add("[ModcraftMC]");
-            event.getLeft().add("current server: not implemented");
+            event.getLeft().add("current server: " + serverName);
         }
     }
 }

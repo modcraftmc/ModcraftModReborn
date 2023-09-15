@@ -14,6 +14,7 @@ public class DiscordActivity {
 
     private Core core;
     private Activity activity;
+    private boolean isLoaded = false;
 
     public void start() {
         try {
@@ -53,6 +54,7 @@ public class DiscordActivity {
                         core.activityManager().updateActivity(activity);
 
 
+                        this.isLoaded = true;
                     // Run callbacks forever
                     while(true)
                     {
@@ -74,6 +76,9 @@ public class DiscordActivity {
     }
 
     public void updatePlayerCount() {
+        if (!this.isLoaded) {
+            return;
+        }
         ModcraftModReborn.LOGGER.info("updatePlayerCount");
         activity.party().size().setMaxSize(100);
         activity.party().size().setCurrentSize(Minecraft.getInstance().getConnection().getOnlinePlayers().size());
@@ -82,6 +87,9 @@ public class DiscordActivity {
     }
 
     public void setWaitingStatus() {
+        if (!this.isLoaded) {
+            return;
+        }
         ModcraftModReborn.LOGGER.info("updatePlayerCount");
         activity.setState("sur l'écran d'accueil");
         core.activityManager().updateActivity(activity);
