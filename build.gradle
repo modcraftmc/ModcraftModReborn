@@ -158,7 +158,7 @@ assemble.dependsOn shadowJar
 
 repositories {
     maven { url 'https://jitpack.io' }
-    maven { url = 'https://maven.modcraftmc.fr/releases' }
+    maven { url = 'https://maven.modcraftmc.fr/snapshots' }
     // Put repositories for dependencies here
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
 
@@ -174,7 +174,7 @@ dependencies {
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.19.2-43.2.14'
     shade 'com.github.JnCrMx:discord-game-sdk4j:v0.5.5'
-    implementation("fr.modcraftmc:cross-server-core-api:1.2.3")
+    implementation("fr.modcraftmc:cross-server-core:1.2.3:api")
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency

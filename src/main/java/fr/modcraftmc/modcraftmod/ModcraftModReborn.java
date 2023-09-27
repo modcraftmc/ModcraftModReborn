@@ -1,7 +1,7 @@
 package fr.modcraftmc.modcraftmod;
 
 import com.mojang.logging.LogUtils;
-import fr.modcraftmc.crossservercoreapi.CrossServerCoreAPI;
+import fr.modcraftmc.crossservercore.api.CrossServerCoreAPI;
 import fr.modcraftmc.modcraftmod.client.discord.DiscordActivity;
 import fr.modcraftmc.modcraftmod.client.reset.ResetHandler;
 import fr.modcraftmc.modcraftmod.common.network.PacketHandler;
