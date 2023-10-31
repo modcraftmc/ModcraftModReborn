@@ -175,7 +175,6 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.19.2-43.2.14'
     shade 'com.github.JnCrMx:discord-game-sdk4j:v0.5.5'
     implementation("fr.modcraftmc:cross-server-core:1.2.3:api")
-
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
