@@ -159,6 +159,10 @@ assemble.dependsOn shadowJar
 repositories {
     maven { url 'https://jitpack.io' }
     maven { url = 'https://maven.modcraftmc.fr/snapshots' }
+    maven { url = 'https://maven.modcraftmc.fr/releases' }
+    maven {
+        url "https://cursemaven.com"
+    }
     // Put repositories for dependencies here
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
 
@@ -172,7 +176,7 @@ dependencies {
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.19.2-43.2.14'
+    minecraft 'net.minecraftforge:forge:1.19.2-43.3.7'
     shade 'com.github.JnCrMx:discord-game-sdk4j:v0.5.5'
     implementation("fr.modcraftmc:cross-server-core:1.2.3:api")
     // Real mod deobf dependency examples - these get remapped to your current mappings
