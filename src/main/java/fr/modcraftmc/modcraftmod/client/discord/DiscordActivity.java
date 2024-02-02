@@ -80,6 +80,7 @@ public class DiscordActivity {
             return;
         }
         ModcraftModReborn.LOGGER.info("updatePlayerCount");
+        if (Minecraft.getInstance().getConnection() == null) return;
         activity.party().size().setMaxSize(100);
         activity.party().size().setCurrentSize(Minecraft.getInstance().getConnection().getOnlinePlayers().size());
         activity.setState("sur le serveur");

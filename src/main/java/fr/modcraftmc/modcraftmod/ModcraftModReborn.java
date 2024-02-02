@@ -2,6 +2,7 @@ package fr.modcraftmc.modcraftmod;
 
 import com.mojang.logging.LogUtils;
 import fr.modcraftmc.crossservercore.api.CrossServerCoreAPI;
+import fr.modcraftmc.modcraftmod.client.ClientEventHandler;
 import fr.modcraftmc.modcraftmod.client.discord.DiscordActivity;
 import fr.modcraftmc.modcraftmod.client.reset.ResetHandler;
 import fr.modcraftmc.modcraftmod.common.network.PacketHandler;
@@ -37,7 +38,7 @@ public class ModcraftModReborn {
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.addListener(this::onPlayerJoin);
-        //MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
+        MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

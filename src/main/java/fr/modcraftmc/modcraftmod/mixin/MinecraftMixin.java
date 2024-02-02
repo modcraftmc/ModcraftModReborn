@@ -31,22 +31,4 @@ public class MinecraftMixin {
         Attributes manifest = ModcraftModReborn.getManifest().getMainAttributes();
         return String.format("ModcraftMC: Reborn (ver: %s-%s)", manifest.getValue("Release-Type"),  manifest.getValue("Build-Time"));
     }
-
-    /**
-     * @author manugame_
-     * @reason make this null-safe when switching servers
-     */
-    @Overwrite
-    public ClientPacketListener getConnection() {
-        if (this.player == null) {
-            if (this.pendingConnection == null) {
-                return null;
-            } else {
-                this.pendingConnection.getPacketListener();
-            }
-        } else {
-            return this.player.connection;
-        }
-        return null;
-    }
 }

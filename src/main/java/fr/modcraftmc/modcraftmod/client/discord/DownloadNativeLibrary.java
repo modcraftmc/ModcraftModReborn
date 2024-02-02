@@ -2,6 +2,7 @@ package fr.modcraftmc.modcraftmod.client.discord;
 
 import de.jcm.discordgamesdk.Core;
 import de.jcm.discordgamesdk.CreateParams;
+import fr.modcraftmc.modcraftmod.client.FilesManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,9 +56,13 @@ public class DownloadNativeLibrary
 
         // Path of Discord's library inside the ZIP
         String zipPath = "lib/"+arch+"/"+name+suffix;
+        File sdk_dir = new File(FilesManager.LAUNCHER_PATH, "discord_sdk");
+
+        File temp = new File(sdk_dir, name+suffix);
+        if (temp.exists()) return temp;
 
         // Open the URL as a ZipInputStream
-        URL downloadUrl = new URL("https://modcraftmc.fr/discord_game_sdk.zip");
+        URL downloadUrl = new URL("https://download.modcraftmc.fr/discord_game_sdk.zip");
         HttpURLConnection connection = (HttpURLConnection) downloadUrl.openConnection();
         connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36");
         ZipInputStream zin = new ZipInputStream(connection.getInputStream());
@@ -70,16 +75,13 @@ public class DownloadNativeLibrary
             {
                 // Create a new temporary directory
                 // We need to do this, because we may not change the filename on Windows
-                File tempDir = new File(System.getProperty("java.io.tmpdir"), "java-"+name+System.nanoTime());
 
-                System.out.println(tempDir.toPath());
-                if(!tempDir.mkdir())
+                System.out.println(sdk_dir.toPath());
+                if(!sdk_dir.mkdir())
                     throw new IOException("Cannot create temporary directory");
-                tempDir.deleteOnExit();
 
                 // Create a temporary file inside our directory (with a "normal" name)
-                File temp = new File(tempDir, name+suffix);
-                temp.deleteOnExit();
+
 
                 // Copy the file in the ZIP to our temporary file
                 Files.copy(zin, temp.toPath());

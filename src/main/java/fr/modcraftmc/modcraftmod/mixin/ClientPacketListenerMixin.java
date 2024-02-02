@@ -16,9 +16,7 @@ public class ClientPacketListenerMixin {
     private int tickCounter = 600;
     @Inject(method = "handleKeepAlive", at = @At("HEAD"))
     public void updateDiscordActivity(ClientboundKeepAlivePacket p_105020_, CallbackInfo ci) {
-        ModcraftModReborn.LOGGER.info(String.valueOf(tickCounter));
         if (++tickCounter > 50) {
-            ModcraftModReborn.LOGGER.info("ccc");
             ModcraftModExecutor.executorService.submit(ModcraftModReborn.discordActivity::updatePlayerCount);
             tickCounter = 0;
         }
