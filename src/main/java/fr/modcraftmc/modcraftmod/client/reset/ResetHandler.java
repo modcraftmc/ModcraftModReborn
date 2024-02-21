@@ -1,9 +1,7 @@
 package fr.modcraftmc.modcraftmod.client.reset;
 
-import fr.modcraftmc.modcraftmod.client.screen.ModcraftTitleScreen;
 import fr.modcraftmc.modcraftmod.client.screen.ResetScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.GenericDirtMessageScreen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl;
 import net.minecraft.client.multiplayer.ServerData;
@@ -81,7 +79,7 @@ public class ResetHandler {
 
         logger.info(RESETMARKER, "Received reset packet from server.");
 
-        ResetScreen resetScreen =  new ResetScreen(new ModcraftTitleScreen());
+        ResetScreen resetScreen =  new ResetScreen(new TitleScreen());
         if (!handleClear(context, resetScreen)) {
             return;
         }

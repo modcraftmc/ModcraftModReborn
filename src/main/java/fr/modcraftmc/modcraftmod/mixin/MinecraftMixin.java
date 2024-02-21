@@ -27,7 +27,7 @@ public class MinecraftMixin {
      * @reason always use our title
      */
     @Overwrite
-    public String createTitle() {
+    private String createTitle() {
         Attributes manifest = ModcraftModReborn.getManifest().getMainAttributes();
         return String.format("ModcraftMC: Reborn (ver: %s-%s)", manifest.getValue("Release-Type"),  manifest.getValue("Build-Time"));
     }
