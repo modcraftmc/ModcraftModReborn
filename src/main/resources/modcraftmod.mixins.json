@@ -11,7 +11,8 @@
     "ClientPacketListenerMixin",
     "CrashReportExtenderMixin",
     "MixinNetworkFilters",
-    "VanillaPacketFilterAccessor"
+    "VanillaPacketFilterAccessor",
+    "LoadingOverlayMixin"
   ],
   "injectors": {
     "defaultRequire": 1
