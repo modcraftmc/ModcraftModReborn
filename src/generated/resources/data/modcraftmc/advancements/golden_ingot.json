@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "obtain_golden_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:gold_ingot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "description": {
+      "text": "Obtain a golden ingot. "
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:gold_ingot"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "GOOOOOLDDDENNFORGE !"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_golden_ingot"
+    ]
+  ]
+}

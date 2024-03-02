@@ -1,0 +1,42 @@
+{
+  "criteria": {
+    "obtain_chicken_and_melon": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:chicken"
+            ]
+          },
+          {
+            "items": [
+              "minecraft:melon_slice"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "description": {
+      "text": "Well well well..."
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:gold_ingot"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Well well well..."
+    }
+  },
+  "requirements": [
+    [
+      "obtain_chicken_and_melon"
+    ]
+  ]
+}
