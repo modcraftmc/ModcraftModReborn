@@ -39,8 +39,12 @@ public abstract class MinecraftMixin {
      */
     @Overwrite
     private String createTitle() {
-        Attributes manifest = ModcraftModReborn.getManifest().getMainAttributes();
-        return String.format("ModcraftMC: Reborn (ver: %s-%s)", manifest.getValue("Release-Type"),  manifest.getValue("Build-Time"));
+        try {
+            Attributes manifest = ModcraftModReborn.getManifest().getMainAttributes();
+            return String.format("ModcraftMC: Reborn (ver: %s-%s)", manifest.getValue("Release-Type"),  manifest.getValue("Build-Time"));
+        } catch (Exception e) {
+            return "ModcraftMC: Reborn (ver: DEV)";
+        }
     }
 
     @ModifyVariable(at = @At("HEAD"), method = "setScreen", ordinal = 0, argsOnly = true)

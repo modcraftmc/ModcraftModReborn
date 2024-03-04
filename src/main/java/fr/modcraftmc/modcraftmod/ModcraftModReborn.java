@@ -1,6 +1,5 @@
 package fr.modcraftmc.modcraftmod;
 
-import com.google.gson.GsonBuilder;
 import com.mojang.logging.LogUtils;
 import fr.modcraftmc.crossservercore.api.CrossServerCoreAPI;
 import fr.modcraftmc.modcraftmod.client.ClientEventHandler;
@@ -10,17 +9,12 @@ import fr.modcraftmc.modcraftmod.common.advancements.ModcraftAdvancements;
 import fr.modcraftmc.modcraftmod.common.network.PacketHandler;
 import fr.modcraftmc.modcraftmod.common.network.packets.S2CServerInfos;
 import fr.modcraftmc.modcraftmod.threads.ModcraftModExecutor;
-import net.minecraft.client.renderer.block.model.ItemTransform;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.block.model.Variant;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -71,11 +65,7 @@ public class ModcraftModReborn {
         ResetHandler.register();
     }
 
-    public static Manifest getManifest() {
-        try {
-            return new Manifest((ModcraftModReborn.class.getResourceAsStream("/META-INF/MANIFEST.MF")));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public static Manifest getManifest() throws IOException {
+        return new Manifest((ModcraftModReborn.class.getResourceAsStream("/META-INF/MANIFEST.MF")));
     }
 }
