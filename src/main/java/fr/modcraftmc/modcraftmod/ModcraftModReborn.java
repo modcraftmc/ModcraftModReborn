@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -42,6 +43,7 @@ public class ModcraftModReborn {
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.addListener(this::onPlayerJoin);
+        MinecraftForge.EVENT_BUS.addListener(this::onServerStartedEvent);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -53,6 +55,19 @@ public class ModcraftModReborn {
         LOGGER.info("GatherDataEvent");
         DataGenerator gen = event.getGenerator();
          gen.addProvider(event.includeServer(), new ModcraftAdvancements(gen, event.getExistingFileHelper()));
+    }
+
+    private void onServerStartedEvent(ServerStartedEvent event) {
+        ModcraftModExecutor.executorService.execute(() -> {
+            LOGGER.info("waiting 10s to set the server ready");
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            LOGGER.info("server is ready to accept connexions");
+            event.getServer().setMotd("READY");
+        });
     }
 
     private void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
