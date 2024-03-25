@@ -10,6 +10,7 @@ import fr.modcraftmc.modcraftmod.common.network.PacketHandler;
 import fr.modcraftmc.modcraftmod.common.network.packets.S2CServerInfos;
 import fr.modcraftmc.modcraftmod.threads.ModcraftModExecutor;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -23,6 +24,9 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.jar.Manifest;
 
 @Mod(ModcraftModReborn.MODID)
@@ -58,16 +62,18 @@ public class ModcraftModReborn {
     }
 
     private void onServerStartedEvent(ServerStartedEvent event) {
-        ModcraftModExecutor.executorService.execute(() -> {
-            LOGGER.info("waiting 10s to set the server ready");
+        LOGGER.info("waiting 10s to set the server ready");
+        CompletableFuture.runAsync(() -> {
             try {
-                Thread.sleep(10000);
+                TimeUnit.SECONDS.sleep(10);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            LOGGER.info("server is ready to accept connexions");
+        }).thenRunAsync(() -> {
+            LOGGER.info("server is ready");
             event.getServer().setMotd("READY");
-        });
+            event.getServer().getStatus().setDescription(Component.literal(event.getServer().getMotd()));
+        }, event.getServer());
     }
 
     private void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
