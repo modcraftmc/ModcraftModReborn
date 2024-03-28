@@ -21,6 +21,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.server.ServerLifecycleHooks;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -77,7 +78,8 @@ public class ModcraftModReborn {
     }
 
     private void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
-        PacketHandler.sendTo(new S2CServerInfos(CrossServerCoreAPI.instance.getServerName()), ((ServerPlayer) event.getEntity()));
+        if (ServerLifecycleHooks.getCurrentServer().isDedicatedServer()) // do not look for CSC in singleplayer
+            PacketHandler.sendTo(new S2CServerInfos(CrossServerCoreAPI.instance.getServerName()), ((ServerPlayer) event.getEntity()));
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
