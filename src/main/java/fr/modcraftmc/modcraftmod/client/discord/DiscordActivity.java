@@ -46,13 +46,11 @@ public class DiscordActivity {
                         activity.assets().setLargeImage("logo");
 
                         // Setting a join secret and a party ID causes an "Ask to Join" button to appear
-                        //activity.party().setID("Party!");
-                        //activity.secrets().setJoinSecret("Join!");
+                        activity.party().setID("server");
+                        activity.secrets().setJoinSecret("modcraft");
 
                         // Finally, update the current activity to our activity
-                        this.activity = activity;
                         core.activityManager().updateActivity(activity);
-
 
                         this.isLoaded = true;
                     // Run callbacks forever

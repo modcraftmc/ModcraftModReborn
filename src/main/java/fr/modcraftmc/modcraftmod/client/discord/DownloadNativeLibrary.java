@@ -45,8 +45,6 @@ public class DownloadNativeLibrary
             throw new RuntimeException("cannot determine OS type: "+osName);
         }
 
-        System.out.println(suffix);
-
 		/*
 		Some systems report "amd64" (e.g. Windows and Linux), some "x86_64" (e.g. Mac OS).
 		At this point we need the "x86_64" version, as this one is used in the ZIP.
@@ -56,7 +54,7 @@ public class DownloadNativeLibrary
 
         // Path of Discord's library inside the ZIP
         String zipPath = "lib/"+arch+"/"+name+suffix;
-        File sdk_dir = new File(FilesManager.LAUNCHER_PATH, "discord_sdk");
+        File sdk_dir = new File(".", ".cache");
 
         File temp = new File(sdk_dir, name+suffix);
         if (temp.exists()) return temp;
@@ -102,7 +100,6 @@ public class DownloadNativeLibrary
 
     public static void main(String[] args)
     {
-        System.out.println("cc");
         try
         {
             File discordLibrary = downloadDiscordLibrary();
