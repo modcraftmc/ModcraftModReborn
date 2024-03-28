@@ -4,15 +4,14 @@
   "package": "fr.modcraftmc.modcraftmod.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "modcraftmod.refmap.json",
-  "mixins": [
-  ],
   "client": [
-    "MinecraftMixin",
     "ClientPacketListenerMixin",
     "CrashReportExtenderMixin",
+    "LoadingOverlayMixin",
+    "MinecraftMixin",
     "MixinNetworkFilters",
-    "VanillaPacketFilterAccessor",
-    "LoadingOverlayMixin"
+    "TitleScreenMixin",
+    "VanillaPacketFilterAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
