@@ -2,6 +2,7 @@ package fr.modcraftmc.modcraftmod.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
 import net.minecraftforge.client.event.ScreenEvent;
@@ -15,8 +16,8 @@ public class ClientEventHandler {
 
     @SubscribeEvent
     public static void onScreenEvent(ScreenEvent.Opening event) {
-        if (event.getScreen() instanceof TitleScreen) {
-            //event.setNewScreen(new WelcomeScreen());
+        if (event.getScreen() instanceof JoinMultiplayerScreen) {
+            event.setNewScreen(new TitleScreen());
         }
     }
 
