@@ -1,5 +1,6 @@
 package fr.modcraftmc.modcraftmod.client.reset;
 
+import fr.modcraftmc.modcraftmod.client.events.ClientResetEvent;
 import fr.modcraftmc.modcraftmod.client.screen.ResetScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.TitleScreen;
@@ -11,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraftforge.network.*;
 import net.minecraftforge.network.simple.SimpleChannel;
@@ -115,6 +117,8 @@ public class ResetHandler {
             ServerData serverData = Minecraft.getInstance().getCurrentServer();
             Pack serverPack = Minecraft.getInstance().getClientPackSource().serverPack;
 
+            MinecraftForge.EVENT_BUS.post(new ClientResetEvent.Pre(context.getNetworkManager(), resetScreen));
+
             // Clear
             if (Minecraft.getInstance().level == null) {
                 // Ensure the GameData is reverted in case the client is reset during the handshake.
@@ -136,6 +140,7 @@ public class ResetHandler {
             // Restore
             Minecraft.getInstance().getClientPackSource().serverPack = serverPack;
             Minecraft.getInstance().setCurrentServer(serverData);
+            MinecraftForge.EVENT_BUS.post(new ClientResetEvent.Post(context.getNetworkManager(), resetScreen));
         });
 
         logger.debug(RESETMARKER, "Waiting for clear to complete");
