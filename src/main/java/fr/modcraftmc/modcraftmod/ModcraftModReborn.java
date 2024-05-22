@@ -16,6 +16,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -26,7 +27,6 @@ import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.jar.Manifest;
 
@@ -48,7 +48,7 @@ public class ModcraftModReborn {
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.addListener(this::onPlayerJoin);
-        MinecraftForge.EVENT_BUS.addListener(this::onServerStartedEvent);
+        MinecraftForge.EVENT_BUS.addListener(EventPriority.LOWEST, this::onServerStartedEvent);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
