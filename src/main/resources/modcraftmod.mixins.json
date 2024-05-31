@@ -12,7 +12,8 @@
     "MixinNetworkFilters",
     "TitleScreenMixin",
     "VanillaPacketFilterAccessor",
-    "FTBChunksClientMixin"
+    "FTBChunksClientMixin",
+    "PacketEncoderMixin"
   ],
   "injectors": {
     "defaultRequire": 1
