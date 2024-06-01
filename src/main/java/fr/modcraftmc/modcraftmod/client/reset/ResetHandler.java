@@ -73,6 +73,7 @@ public class ResetHandler {
     public static void handleReset(HandshakeHandler handler, S2CResetPacket msg, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
         Connection connection = context.getNetworkManager();
+        String destinationServer = msg.getDestinationServer();
 
         if (context.getDirection() != NetworkDirection.LOGIN_TO_CLIENT && context.getDirection() != NetworkDirection.PLAY_TO_CLIENT) {
             connection.disconnect(Component.literal("Illegal packet received, terminating connection"));
@@ -81,7 +82,7 @@ public class ResetHandler {
 
         logger.info(RESETMARKER, "Received reset packet from server.");
 
-        ResetScreen resetScreen =  new ResetScreen(new TitleScreen());
+        ResetScreen resetScreen =  new ResetScreen(destinationServer, new TitleScreen());
         if (!handleClear(context, resetScreen)) {
             return;
         }
