@@ -1,5 +1,6 @@
 package fr.modcraftmc.modcraftmod.client.reset;
 
+import dev.emi.emi.registry.EmiRecipes;
 import fr.modcraftmc.modcraftmod.client.events.ClientResetEvent;
 import fr.modcraftmc.modcraftmod.client.screen.ResetScreen;
 import net.minecraft.client.Minecraft;
@@ -113,6 +114,8 @@ public class ResetHandler {
     public static boolean handleClear(NetworkEvent.Context context, ResetScreen resetScreen) {
         CompletableFuture<Void> future = context.enqueueWork(() -> {
             logger.debug(RESETMARKER, "Clearing");
+
+            EmiRecipes.clear();
 
             // Preserve
             ServerData serverData = Minecraft.getInstance().getCurrentServer();

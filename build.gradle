@@ -183,6 +183,7 @@ dependencies {
     implementation fg.deobf("curse.maven:ftbchunks-314906:5001266")
     implementation fg.deobf("curse.maven:ftblib-404465:4661834")
     implementation fg.deobf("curse.maven:architectury-419699:5137942")
+    implementation fg.deobf("curse.maven:emi-580555:5311324")
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
