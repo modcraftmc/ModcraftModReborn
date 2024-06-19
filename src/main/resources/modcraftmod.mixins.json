@@ -5,15 +5,20 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "modcraftmod.refmap.json",
   "client": [
+    "ChatComponentMixin",
     "ClientPacketListenerMixin",
     "CrashReportExtenderMixin",
+    "FTBChunksClientMixin",
     "LoadingOverlayMixin",
     "MinecraftMixin",
     "MixinNetworkFilters",
+    "PacketEncoderMixin",
     "TitleScreenMixin",
-    "VanillaPacketFilterAccessor",
-    "FTBChunksClientMixin",
-    "PacketEncoderMixin"
+    "VanillaPacketFilterAccessor"
+  ],
+  "server": [
+    "PlayerListMixin",
+    "ServerGamePacketListenerImplMixin"
   ],
   "injectors": {
     "defaultRequire": 1
