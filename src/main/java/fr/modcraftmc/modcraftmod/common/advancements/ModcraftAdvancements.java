@@ -26,7 +26,7 @@ public class ModcraftAdvancements extends AdvancementProvider {
         Advancement.Builder.advancement()
                 .display(Items.GOLD_INGOT,
                         Component.literal("GOOOOOLDDDENNFORGE !"),
-                        Component.literal("Obtain a golden ingot."),
+                        Component.literal("Obtain a golden ingot. GoldenForge is a fork of Forge designed by ModcraftMC to optimise our servers."),
                         new ResourceLocation("textures/gui/advancements/backgrounds/adventure.png"),
                         FrameType.CHALLENGE,
                         true,

@@ -17,7 +17,7 @@
     "announce_to_chat": true,
     "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
     "description": {
-      "text": "Obtain a golden ingot. "
+      "text": "Obtain a golden ingot. GoldenForge is a fork of Forge designed by ModcraftMC to optimise our servers."
     },
     "frame": "challenge",
     "hidden": false,

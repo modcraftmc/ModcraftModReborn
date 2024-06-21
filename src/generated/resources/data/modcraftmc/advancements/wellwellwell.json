@@ -22,12 +22,12 @@
     "announce_to_chat": true,
     "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
     "description": {
-      "text": "Well well well..."
+      "text": "Chicken and melon ? huh ?"
     },
     "frame": "challenge",
     "hidden": false,
     "icon": {
-      "item": "minecraft:gold_ingot"
+      "item": "minecraft:cooked_chicken"
     },
     "show_toast": true,
     "title": {
