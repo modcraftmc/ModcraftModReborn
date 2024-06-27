@@ -35,24 +35,25 @@ public class DiscordActivity {
                 // Create the Core
                 this.core = new Core(params);
                     // Create the Activity
-                        this.activity = new Activity();
+                this.activity = new Activity();
 
-                        activity.setDetails("serveur survie moddé 1.19");
-                        activity.setState("chargement du jeu");
+                activity.setDetails("serveur survie moddé 1.19");
+                activity.setState("chargement du jeu");
 
-                        // Setting a start time causes an "elapsed" field to appear
-                        activity.timestamps().setStart(Instant.now());
-                        // Make a "cool" image show up
-                        activity.assets().setLargeImage("logo");
+                // Setting a start time causes an "elapsed" field to appear
+                activity.timestamps().setStart(Instant.now());
+                // Make a "cool" image show up
+                activity.assets().setLargeImage("logo");
+                activity.assets().setLargeText("discord.modcraftmc.fr");
 
-                        // Setting a join secret and a party ID causes an "Ask to Join" button to appear
-                        activity.party().setID("server");
-                        activity.secrets().setJoinSecret("modcraft");
+                // Setting a join secret and a party ID causes an "Ask to Join" button to appear
+                activity.party().setID("server");
+                activity.secrets().setJoinSecret("modcraft");
 
-                        // Finally, update the current activity to our activity
-                        core.activityManager().updateActivity(activity);
+                // Finally, update the current activity to our activity
+                core.activityManager().updateActivity(activity);
 
-                        this.isLoaded = true;
+                this.isLoaded = true;
                     // Run callbacks forever
                     while(true)
                     {
