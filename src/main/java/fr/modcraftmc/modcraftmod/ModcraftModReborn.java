@@ -3,12 +3,10 @@ package fr.modcraftmc.modcraftmod;
 import com.mojang.logging.LogUtils;
 import fr.modcraftmc.crossservercore.api.CrossServerCoreAPI;
 import fr.modcraftmc.modcraftmod.client.ClientEventHandler;
-import fr.modcraftmc.modcraftmod.client.discord.DiscordActivity;
 import fr.modcraftmc.modcraftmod.client.reset.ResetHandler;
 import fr.modcraftmc.modcraftmod.common.advancements.ModcraftAdvancements;
 import fr.modcraftmc.modcraftmod.common.network.PacketHandler;
 import fr.modcraftmc.modcraftmod.common.network.packets.S2CServerInfos;
-import fr.modcraftmc.modcraftmod.threads.ModcraftModExecutor;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -84,7 +82,6 @@ public class ModcraftModReborn {
 
     private void clientSetup(final FMLClientSetupEvent event) {
         MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
-        ModcraftModExecutor.executorService.execute(discordActivity::start);
         ResetHandler.register();
     }
 
