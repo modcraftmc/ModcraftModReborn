@@ -4,6 +4,7 @@ import de.jcm.discordgamesdk.Core;
 import de.jcm.discordgamesdk.CreateParams;
 import de.jcm.discordgamesdk.activity.Activity;
 import fr.modcraftmc.modcraftmod.ModcraftModReborn;
+import fr.modcraftmc.modcraftmod.client.FilesManager;
 import net.minecraft.client.Minecraft;
 
 import java.io.File;
@@ -17,6 +18,7 @@ public class DiscordActivity {
     private boolean isLoaded = false;
 
     public void start() {
+
         try {
             File discordLibrary = DownloadNativeLibrary.downloadDiscordLibrary();
             if(discordLibrary == null)
@@ -31,7 +33,7 @@ public class DiscordActivity {
             try(CreateParams params = new CreateParams())
             {
                 params.setClientID(637707031804903425L);
-                params.setFlags(CreateParams.getDefaultFlags());
+                params.setFlags(CreateParams.Flags.NO_REQUIRE_DISCORD);
                 // Create the Core
                 this.core = new Core(params);
                     // Create the Activity
