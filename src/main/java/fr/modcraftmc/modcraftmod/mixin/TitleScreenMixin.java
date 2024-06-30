@@ -20,11 +20,6 @@ public class TitleScreenMixin {
 
     private ServerData modcraftServerData = new ServerData("ModcraftMC", "46.4.104.245", false);
 
-    @Inject(method = "<init>(Z)V", at = @At("RETURN"))
-    private void updateDiscordActivity(CallbackInfo ci) {
-        ModcraftModExecutor.executorService.submit(ModcraftModReborn.discordActivity::setWaitingStatus);
-    }
-
     @Redirect(method = "createNormalMenuOptions", at = @At(value = "NEW", target = "(IIIILnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/components/Button$OnPress;Lnet/minecraft/client/gui/components/Button$OnTooltip;)Lnet/minecraft/client/gui/components/Button;", ordinal = 1))
     public Button customMultiplayerButton(int p_93728_, int p_93729_, int p_93730_, int p_93731_, Component p_93732_, Button.OnPress p_93733_, Button.OnTooltip tooltip, int a, int b) { // mixin plugin fucked this up
         return new Button(p_93728_, p_93729_, p_93730_, p_93731_, Component.literal(">> ModcraftMC <<"), (button) -> {
