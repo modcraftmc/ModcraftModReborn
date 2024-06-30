@@ -33,7 +33,6 @@ public class ModcraftModReborn {
 
     public static final String MODID = "modcraftmod";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final DiscordActivity discordActivity = new DiscordActivity();
     public ModcraftModReborn() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
