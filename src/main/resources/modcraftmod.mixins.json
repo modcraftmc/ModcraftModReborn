@@ -6,7 +6,7 @@
   "refmap": "modcraftmod.refmap.json",
   "client": [
     "ChatComponentMixin",
-    "ClientPacketListenerMixin",
+    "ChatListenerMixin",
     "CrashReportExtenderMixin",
     "FTBChunksClientMixin",
     "LoadingOverlayMixin",
@@ -14,7 +14,6 @@
     "MixinNetworkFilters",
     "PacketEncoderMixin",
     "TitleScreenMixin",
-    "ChatListenerMixin",
     "VanillaPacketFilterAccessor"
   ],
   "server": [
@@ -23,5 +22,8 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "mixins": [
+    "PlayerMixin"
+  ]
 }
