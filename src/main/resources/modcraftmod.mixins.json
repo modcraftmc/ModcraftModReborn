@@ -18,12 +18,10 @@
   ],
   "server": [
     "PlayerListMixin",
-    "ServerGamePacketListenerImplMixin"
+    "ServerGamePacketListenerImplMixin",
+    "PlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "mixins": [
-    "PlayerMixin"
-  ]
+  }
 }
