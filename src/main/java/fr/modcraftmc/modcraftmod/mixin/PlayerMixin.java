@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Abilities;
@@ -37,7 +38,10 @@ public abstract class PlayerMixin extends LivingEntity {
         } else {
             BlockPos blockpos = p_36205_.relative(p_36206_.getOpposite());
             BlockInWorld blockinworld = new BlockInWorld(this.level, blockpos, false);
-            ForgeHooks.onItemRightClick((Player) (Object) this, InteractionHand.MAIN_HAND);
+            InteractionResult result = ForgeHooks.onItemRightClick((Player) (Object) this, InteractionHand.MAIN_HAND);
+            if (result == InteractionResult.FAIL) {
+                return false;
+            }
             return p_36207_.hasAdventureModePlaceTagForBlock(this.level.registryAccess().registryOrThrow(Registry.BLOCK_REGISTRY), blockinworld);
         }
     }
