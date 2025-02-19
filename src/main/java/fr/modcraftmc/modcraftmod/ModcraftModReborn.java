@@ -1,26 +1,18 @@
 package fr.modcraftmc.modcraftmod;
 
 import com.mojang.logging.LogUtils;
-import fr.modcraftmc.crossservercore.api.CrossServerCoreAPI;
 import fr.modcraftmc.modcraftmod.client.ClientEventHandler;
-import fr.modcraftmc.modcraftmod.client.reset.ResetHandler;
-import fr.modcraftmc.modcraftmod.common.advancements.ModcraftAdvancements;
 import fr.modcraftmc.modcraftmod.common.network.PacketHandler;
-import fr.modcraftmc.modcraftmod.common.network.packets.S2CServerInfos;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.server.ServerStartedEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.server.ServerLifecycleHooks;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.server.ServerStartedEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -33,30 +25,21 @@ public class ModcraftModReborn {
 
     public static final String MODID = "modcraftmod";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public ModcraftModReborn() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
+    public ModcraftModReborn(IEventBus modEventBus) {
         // Register the commonSetup method for modloading
-        modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::gatherData);
-
+        modEventBus.addListener(this::registerPackets);
 
         // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.addListener(this::onPlayerJoin);
-        MinecraftForge.EVENT_BUS.addListener(EventPriority.LOWEST, this::onServerStartedEvent);
+        NeoForge.EVENT_BUS.addListener(this::onPlayerJoin);
+        NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, this::onServerStartedEvent);
     }
-
-    private void commonSetup(final FMLCommonSetupEvent event) {
-        PacketHandler.register();
-    }
-
 
     public void gatherData(GatherDataEvent event) {
         LOGGER.info("GatherDataEvent");
         DataGenerator gen = event.getGenerator();
-         gen.addProvider(event.includeServer(), new ModcraftAdvancements(gen, event.getExistingFileHelper()));
+      //   gen.addProvider(event.includeServer(), new ModcraftAdvancements(gen, event.getExistingFileHelper()));
     }
 
     private void onServerStartedEvent(ServerStartedEvent event) {
@@ -70,18 +53,21 @@ public class ModcraftModReborn {
         }).thenRunAsync(() -> {
             LOGGER.info("server is ready");
             event.getServer().setMotd("READY");
-            event.getServer().getStatus().setDescription(Component.literal(event.getServer().getMotd()));
         }, event.getServer());
     }
 
     private void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (ServerLifecycleHooks.getCurrentServer().isDedicatedServer()) // do not look for CSC in singleplayer
-            PacketHandler.sendTo(new S2CServerInfos(CrossServerCoreAPI.instance.getServerName()), ((ServerPlayer) event.getEntity()));
+//        if (ServerLifecycleHooks.getCurrentServer().isDedicatedServer()) // do not look for CSC in singleplayer
+//            PacketDistributor.sendToPlayer((ServerPlayer) event.getEntity(), new S2CServerInfos(CrossServerCoreAPI.instance.getServerName()));
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
-        ResetHandler.register();
+        NeoForge.EVENT_BUS.register(ClientEventHandler.class);
+        //ResetHandler.register();
+    }
+
+    private void registerPackets(final RegisterPayloadHandlersEvent event) {
+        PacketHandler.register(event);
     }
 
     public static Manifest getManifest() throws IOException {

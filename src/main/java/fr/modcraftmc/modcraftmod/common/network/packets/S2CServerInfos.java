@@ -1,27 +1,23 @@
 package fr.modcraftmc.modcraftmod.common.network.packets;
 
-import fr.modcraftmc.modcraftmod.client.ClientEventHandler;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import fr.modcraftmc.modcraftmod.ModcraftModReborn;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 
-import java.util.function.Supplier;
+public record S2CServerInfos(String serverName) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<S2CServerInfos> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(ModcraftModReborn.MODID, "server_infos"));
 
-public class S2CServerInfos implements Packet {
+    public static final StreamCodec<ByteBuf, S2CServerInfos> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.STRING_UTF8,
+            S2CServerInfos::serverName,
+            S2CServerInfos::new
+    );
 
-    public String serverName;
-
-    public S2CServerInfos(String serverName) {
-        this.serverName = serverName;
-    }
-    public static void encode(S2CServerInfos msg, FriendlyByteBuf friendlyByteBuf) {
-        friendlyByteBuf.writeUtf(msg.serverName);
-    }
-
-    public static S2CServerInfos decode(FriendlyByteBuf friendlyByteBuf) {
-        return new S2CServerInfos(friendlyByteBuf.readUtf());
-    }
-
-    public static void handle(S2CServerInfos msg, Supplier<NetworkEvent.Context> ctx) {
-        ClientEventHandler.serverName = msg.serverName;
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

@@ -1,15 +1,13 @@
 package fr.modcraftmc.modcraftmod.client;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
-import net.minecraftforge.client.event.ScreenEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.CustomizeGuiOverlayEvent;
+import net.neoforged.neoforge.client.event.ScreenEvent;
 
-@Mod.EventBusSubscriber(Dist.CLIENT)
+@EventBusSubscriber
 public class ClientEventHandler {
 
     public static String serverName = "";
@@ -23,7 +21,7 @@ public class ClientEventHandler {
 
     @SubscribeEvent
     public static void debugText(CustomizeGuiOverlayEvent.DebugText event) {
-        if (Minecraft.getInstance().options.renderDebug) {
+        if (true) {
             event.getLeft().add("");
             event.getLeft().add("[ModcraftMC]");
             event.getLeft().add("current server: " + serverName);

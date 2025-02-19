@@ -2,9 +2,12 @@ package fr.modcraftmc.modcraftmod.mixin;
 
 import fr.modcraftmc.modcraftmod.ModcraftModReborn;
 import fr.modcraftmc.modcraftmod.client.screen.JoiningWorldBridgeScreen;
+import fr.modcraftmc.modcraftmod.client.screen.ReconfigBridgeScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ReceivingLevelScreen;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.multiplayer.ServerReconfigScreen;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.Connection;
@@ -13,14 +16,13 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.jar.Attributes;
-import java.util.jar.Manifest;
 
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin {
@@ -32,6 +34,10 @@ public abstract class MinecraftMixin {
     @Shadow
     @Nullable
     public abstract ClientPacketListener getConnection();
+
+    @Shadow @Nullable public Screen screen;
+
+    @Shadow @Nullable public ClientLevel level;
 
     /**
      * @author manugame_
@@ -51,8 +57,19 @@ public abstract class MinecraftMixin {
     public Screen setScreen(Screen screen) {
         if (screen instanceof ReceivingLevelScreen) {
             return null;
+        } else if (screen instanceof ServerReconfigScreen) {
+            return new ReconfigBridgeScreen(this.getConnection().getConnection());
+        }  else if (this.screen instanceof JoiningWorldBridgeScreen && screen instanceof JoiningWorldBridgeScreen) {
+            return null;
         }
         return screen;
+    }
+
+    @Inject(method = "setScreen", at = @At("HEAD"), cancellable = true)
+    public void setScreenCancelCloseScreen(Screen screen, CallbackInfo ci) {
+        if (this.level != null && screen instanceof JoiningWorldBridgeScreen) {
+            ci.cancel();
+        }
     }
 
     @ModifyArg(method = "setLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;updateScreenAndTick(Lnet/minecraft/client/gui/screens/Screen;)V", opcode = Opcodes.INVOKEVIRTUAL), index = 0)

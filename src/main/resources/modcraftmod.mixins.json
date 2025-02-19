@@ -3,23 +3,17 @@
   "minVersion": "0.8",
   "package": "fr.modcraftmc.modcraftmod.mixin",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "modcraftmod.refmap.json",
   "client": [
     "ChatComponentMixin",
-    "ChatListenerMixin",
     "CrashReportExtenderMixin",
     "FTBChunksClientMixin",
     "LoadingOverlayMixin",
-    "MinecraftMixin",
-    "MixinNetworkFilters",
-    "PacketEncoderMixin",
-    "TitleScreenMixin",
-    "VanillaPacketFilterAccessor"
+    "MinecraftMixin"
   ],
   "server": [
     "PlayerListMixin",
-    "ServerGamePacketListenerImplMixin",
-    "PlayerMixin"
+    "PlayerMixin",
+    "ServerGamePacketListenerImplMixin"
   ],
   "injectors": {
     "defaultRequire": 1
