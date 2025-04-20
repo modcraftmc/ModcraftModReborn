@@ -11,10 +11,7 @@ public class PacketHandler {
 
     public static void register(RegisterPayloadHandlersEvent event) {
         final PayloadRegistrar registrar = event.registrar("1");
-
         registrar.playToClient(S2CServerInfos.TYPE, S2CServerInfos.STREAM_CODEC, PacketHandler::handleServerInfos);
-
-
     }
 
     private static void handleServerInfos(S2CServerInfos s2CServerInfos, IPayloadContext iPayloadContext) {

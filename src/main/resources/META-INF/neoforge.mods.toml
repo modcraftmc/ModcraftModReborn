@@ -40,6 +40,9 @@ logoFile="logo.png" #optional
 # IMPORTANT NOTE: this is NOT an instruction as to which environments (CLIENT or DEDICATED SERVER) your mod loads on. Your mod should load (and maybe do nothing!) whereever it finds itself.
 #displayTest="MATCH_VERSION" # MATCH_VERSION is the default if nothing is specified (#optional)
 
+[[mixins]]
+config = "modcraftmod.mixins.json"
+
 # The description text for the mod (multi line!) (#mandatory)
 description='''
 
@@ -48,6 +51,6 @@ description='''
 modId="crossservercore"
 mandatory=true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
-versionRange="[1.19.2,1.20)"
+versionRange="[2.0.0,2.1.0)"
 ordering="NONE"
 side="SERVER"

@@ -1,23 +1,24 @@
 package fr.modcraftmc.modcraftmod;
 
 import com.mojang.logging.LogUtils;
+import fr.modcraftmc.crossservercore.api.CrossServerCoreAPI;
 import fr.modcraftmc.modcraftmod.client.ClientEventHandler;
 import fr.modcraftmc.modcraftmod.common.network.PacketHandler;
+import fr.modcraftmc.modcraftmod.common.network.packets.S2CServerInfos;
 import net.minecraft.data.DataGenerator;
-import net.neoforged.bus.api.EventPriority;
+import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.server.ServerStartedEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import org.slf4j.Logger;
 
 import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 import java.util.jar.Manifest;
 
 @Mod(ModcraftModReborn.MODID)
@@ -33,7 +34,7 @@ public class ModcraftModReborn {
 
         // Register ourselves for server and other game events we are interested in
         NeoForge.EVENT_BUS.addListener(this::onPlayerJoin);
-        NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, this::onServerStartedEvent);
+
     }
 
     public void gatherData(GatherDataEvent event) {
@@ -42,28 +43,14 @@ public class ModcraftModReborn {
       //   gen.addProvider(event.includeServer(), new ModcraftAdvancements(gen, event.getExistingFileHelper()));
     }
 
-    private void onServerStartedEvent(ServerStartedEvent event) {
-        LOGGER.info("waiting 10s to set the server ready");
-        CompletableFuture.runAsync(() -> {
-            try {
-                TimeUnit.SECONDS.sleep(10);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }).thenRunAsync(() -> {
-            LOGGER.info("server is ready");
-            event.getServer().setMotd("READY");
-        }, event.getServer());
-    }
-
     private void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
-//        if (ServerLifecycleHooks.getCurrentServer().isDedicatedServer()) // do not look for CSC in singleplayer
-//            PacketDistributor.sendToPlayer((ServerPlayer) event.getEntity(), new S2CServerInfos(CrossServerCoreAPI.instance.getServerName()));
+        // maybe we should use the configuration phase to handle this??
+        if (ServerLifecycleHooks.getCurrentServer().isDedicatedServer())
+            PacketDistributor.sendToPlayer((ServerPlayer) event.getEntity(), new S2CServerInfos(CrossServerCoreAPI.getServerName()));
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
         NeoForge.EVENT_BUS.register(ClientEventHandler.class);
-        //ResetHandler.register();
     }
 
     private void registerPackets(final RegisterPayloadHandlersEvent event) {

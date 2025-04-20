@@ -102,7 +102,7 @@ dependencies {
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     implementation "net.neoforged:neoforge:${neo_version}"
     shade 'com.github.JnCrMx:discord-game-sdk4j:v0.5.5'
-    //implementation("fr.modcraftmc:cross-server-core:1.2.3:api")
+    implementation("fr.modcraftmc:cross-server-core:2.0.0:api")
     implementation "curse.maven:ftbteams-404468:4611938"
     implementation "curse.maven:ftbchunks-314906:5001266"
     implementation "curse.maven:ftblib-404465:4661834"
