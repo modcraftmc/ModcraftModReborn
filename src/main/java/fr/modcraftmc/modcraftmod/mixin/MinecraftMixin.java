@@ -78,4 +78,9 @@ public abstract class MinecraftMixin {
         // Can't just set it to null during reconfiguration, so set an empty screen
         return new JoiningWorldBridgeScreen();
     }
+
+    @Inject(method = "clearClientLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;onDisconnected()V"))
+    public void fireUnloadEvent(Screen p_294558_, CallbackInfo ci) {
+        if (this.level != null) net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.level.LevelEvent.Unload(this.level));
+    }
 }
